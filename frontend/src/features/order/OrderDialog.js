@@ -59,7 +59,7 @@ function OrderDialog({
             label="Trạng thái"
             select
             margin="dense"
-            disabled={selectedOrder.status == "cancelled"}
+            disabled={selectedOrder?.status == "cancelled"}
             fullWidth
           >
             <MenuItem value="pending">Chờ xử lý</MenuItem>
