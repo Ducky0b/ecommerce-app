@@ -58,7 +58,7 @@ This project demonstrates a real-world online shopping experience where users ca
 └── README.md             # Root documentation (this file)
 ```
 
-# How to Clone and Run Locally
+# 🚀 How to Clone and Run Locally
 
 ## 1️⃣ Clone the repository
 
@@ -80,13 +80,14 @@ Frontend:
 ## 3️⃣ Set up environment variables
 
 🧩 Backend .env
-PORT=5000
-MONGODB_URI=your_mongo_connection_string
-JWT_SECRET=your_secret_key
-CLOUDINARY_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-CLIENT_URL=http://localhost:3000
+
+- PORT=5000
+- MONGODB_URI=your_mongo_connection_string
+- JWT_SECRET=your_secret_key
+- CLOUDINARY_NAME=your_cloud_name
+- CLOUDINARY_API_KEY=your_api_key
+- CLOUDINARY_API_SECRET=your_api_secret
+- CLIENT_URL=http://localhost:3000
 
 🧩 Frontend .env
 
@@ -116,7 +117,7 @@ Frontend: 👉 http://localhost:3000
 
 Backend API: 👉 http://localhost:5000
 
-# What I Learned
+# 🎓 What I Learned
 
 - Designing a scalable MERN project structure
 
@@ -130,7 +131,7 @@ Backend API: 👉 http://localhost:5000
 
 - Using Cloudinary API for image storage
 
-# Future Improvements
+# 🔮 Future Improvements
 
 - Integrate payment gateway (Stripe or PayPal)
 
