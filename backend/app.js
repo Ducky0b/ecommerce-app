@@ -17,7 +17,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://ecommerce-app.vercel.app"],
+    origin: [
+      "http://localhost:3000",
+      "https://dulcet-khapse-41242a.netlify.app/",
+    ],
   })
 );
 
