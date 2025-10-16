@@ -154,6 +154,6 @@ Deployed with Render + Netlify
 # 🧑‍💻 Author
 
 Vo Van Viet
-📧 vanviet28052002@gmail.com
-[Facebook](https://facebook.com/bedittihon)
-🌐 GitHub
+
+- 📧 vanviet28052002@gmail.com
+- [Facebook][https://facebook.com/bedittihon]
