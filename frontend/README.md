@@ -5,9 +5,49 @@ The app supports product browsing, search, authentication, shopping cart, order 
 
 ---
 
+## 🧭 Project Overview
+
+This e-commerce app allows users to:
+
+- 🛍️ Browse products by category, color, and size
+- 🔎 Search products instantly from the top navigation bar
+- 🛒 Add products to cart and place orders (COD supported)
+- 👤 Manage personal account, upload avatar, and view order history
+- 🧑‍💼 Admin dashboard for managing products, users, and orders
+
 ## 🚀 Demo
 
-🔗 [https://your-frontend-demo.vercel.app](#)
+🔗 [https://dulcet-khapse-41242a.netlify.app/](#)
+
+---
+
+## 🧩 Features
+
+### 👤 User
+
+- Register, login, and authenticate with JWT
+- Update profile and upload avatar
+- View order history
+
+### 🛒 Cart & Orders
+
+- Add / remove products from cart
+- Update item quantity and auto-calculate totals
+- Place orders (COD)
+- View order confirmation details
+
+### 🛍️ Products
+
+- Browse by category and subcategory
+- **Dynamic Search Bar** on AppBar
+- Product variants: color, size, stock
+- “All Products” page to view every item
+
+### 🧑‍💼 Admin Dashboard
+
+- Manage products, users, and orders
+- CRUD operations for categories and variants
+- Manage inventory and view analytics (coming soon)
 
 ---
 
@@ -47,3 +87,16 @@ frontend/
 │
 └── package.json
 ```
+
+## 🎓 What I Learned
+
+Building this project taught me how to:
+
+- Design a full MERN architecture from scratch
+- Implement secure JWT authentication and authorization
+- Handle Cloudinary integration for product and user images
+- Manage complex UI state using Redux Toolkit
+- Fix CORS and deploy fullstack apps across Netlify + Render
+- Apply responsive design with Material UI
+
+---
