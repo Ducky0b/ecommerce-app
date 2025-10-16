@@ -58,24 +58,27 @@ This project demonstrates a real-world online shopping experience where users ca
 └── README.md             # Root documentation (this file)
 ```
 
-🚀 How to Clone and Run Locally
+# How to Clone and Run Locally
 
-1️⃣ Clone the repository
+## 1️⃣ Clone the repository
 
-git clone https://github.com/yourusername/ecommerce-app.git
-cd ecommerce-app
+- git clone https://github.com/yourusername/ecommerce-app.git
+- cd ecommerce-app
 
-2️⃣ Install dependencies
+## 2️⃣ Install dependencies
 
 Backend:
-cd backend
-npm install
+
+- cd backend
+- npm install
 
 Frontend:
-cd ../frontend
-npm install
 
-3️⃣ Set up environment variables
+- cd ../frontend
+- npm install
+
+## 3️⃣ Set up environment variables
+
 🧩 Backend .env
 PORT=5000
 MONGODB_URI=your_mongo_connection_string
@@ -95,14 +98,17 @@ For Create React App:
 
 REACT_APP_API_URL=http://localhost:5000
 
-4️⃣ Start the servers
+## 4️⃣ Start the servers
+
 Backend:
-cd backend
-npm run dev
+
+- cd backend
+- npm run dev
 
 Frontend:
-cd ../frontend
-npm start
+
+- cd ../frontend
+- npm start
 
 App will run at:
 
@@ -110,28 +116,28 @@ Frontend: 👉 http://localhost:3000
 
 Backend API: 👉 http://localhost:5000
 
-What I Learned
+# What I Learned
 
-Designing a scalable MERN project structure
+- Designing a scalable MERN project structure
 
-Handling JWT-based authentication and authorization
+- Handling JWT-based authentication and authorization
 
-Solving CORS deployment issues between Render and Netlify
+- Solving CORS deployment issues between Render and Netlify
 
-Optimizing state management with Redux Toolkit
+- Optimizing state management with Redux Toolkit
 
-Deploying production-grade apps to Render & Netlify
+- Deploying production-grade apps to Render & Netlify
 
-Using Cloudinary API for image storage
+- Using Cloudinary API for image storage
 
-🔮 Future Improvements
+# Future Improvements
 
-Integrate payment gateway (Stripe or PayPal)
+- Integrate payment gateway (Stripe or PayPal)
 
-Product reviews and ratings
+- Product reviews and ratings
 
-Admin analytics dashboard
+- Admin analytics dashboard
 
-Multi-language support (EN/VN)
+- Multi-language support (EN/VN)
 
-Dark mode toggle
+- Dark mode toggle
