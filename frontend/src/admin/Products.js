@@ -20,7 +20,6 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
 } from "@mui/icons-material";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteProduct, getProducts } from "../features/product/productSlice";
 

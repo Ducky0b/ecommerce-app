@@ -19,6 +19,7 @@ import AccountPage from "../pages/AccountPage";
 import AllProductPage from "../pages/AllProductPage";
 import AdminRequire from "./AdminRequire";
 import OrderManagement from "../features/order/OrderManagement";
+import SearchProduct from "../components/SearchProduct";
 function Router() {
   return (
     <Routes>
@@ -57,6 +58,7 @@ function Router() {
         />
 
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/search" element={<SearchProduct />} />
       </Route>
 
       <Route element={<BlankLayout />}>

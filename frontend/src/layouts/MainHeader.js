@@ -9,16 +9,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import useAuth from "../hooks/useAuth";
 import { Fragment, useEffect, useRef, useState } from "react";
-import {
-  Avatar,
-  Button,
-  Collapse,
-  CssBaseline,
-  Divider,
-  Drawer,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import { Button, Collapse, CssBaseline, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link as RouterLink } from "react-router-dom";
 import MiniCart from "../features/cart/MiniCart";
@@ -30,6 +21,8 @@ import { getCategories } from "../features/category/categorySlice";
 import { slugify } from "../utils/slugtify";
 import AccountMenu from "../features/user/AccountMenu";
 import { getCurrentUser } from "../features/user/userSlice";
+
+import SearchInput from "../components/SearchInput";
 
 function MainHeader() {
   const [navItems, setNavItems] = useState([]);
@@ -62,7 +55,7 @@ function MainHeader() {
     });
 
     const items = sortedParents.map((parent) => ({
-      label: parent.name,
+      label: `${parent.name}+`,
       path: `/products/${slugify(parent.name)}`,
       categoryId: parent._id,
       subItems: categories
@@ -76,7 +69,10 @@ function MainHeader() {
           categoryId: c._id,
         })),
     }));
-
+    items.push({
+      label: "ALL+",
+      path: "/products/all",
+    });
     setNavItems([
       { label: "Trang chủ", path: "/" },
       { label: "Sản phẩm", path: "/products", subItems: items },
@@ -112,7 +108,7 @@ function MainHeader() {
       handleCategories(categories);
     }
   }, [categories]);
-  
+
   useEffect(() => {
     function handleClickOutside(e) {
       if (
@@ -127,12 +123,11 @@ function MainHeader() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-
   const renderMenuNavItems = (items, parentKey = "") => {
     return items.map((item, index) => {
       const key = parentKey ? `${parentKey}-${index}` : `${index}`;
       const hasSub = !!item.subItems;
-      const level = key.split("-").length; // xác định cấp độ menu
+      const level = key.split("-").length;
 
       return (
         <Fragment key={key}>
@@ -150,7 +145,7 @@ function MainHeader() {
                       }))
                   : () => setMobileOpen(false)
               }
-              sx={{ pl: 1 + level * 3 }} // dịch sang phải theo cấp
+              sx={{ pl: 1 + level * 3 }}
             >
               <ListItemText
                 primary={item.label}
@@ -176,7 +171,6 @@ function MainHeader() {
     });
   };
 
-
   const DesktopMenu = ({ items }) => {
     return (
       <Box
@@ -193,7 +187,7 @@ function MainHeader() {
 
           const handleMainClick = (e) => {
             if (hasSub) {
-              e.preventDefault(); // chặn navigate nếu có sub
+              e.preventDefault();
               setOpenMainIndex(isOpen ? null : index);
               setOpenSubIndex(null);
             }
@@ -309,7 +303,6 @@ function MainHeader() {
     );
   };
 
-
   const drawer = (
     <Box sx={{ width: 260 }} role="presentation">
       <List>{renderMenuNavItems(navItems)}</List>
@@ -339,6 +332,8 @@ function MainHeader() {
           <DesktopMenu items={navItems} />
 
           <Box sx={{ flexGrow: 1 }} />
+
+          <SearchInput />
 
           {isAuthenticated && user ? (
             <AccountMenu />

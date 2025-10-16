@@ -116,7 +116,7 @@ export const createProduct =
   };
 
 export const getProducts =
-  ({ page, limit = 10, categoryId, categoryIds }) =>
+  ({ page, limit = 10, categoryId, categoryIds, name }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -127,6 +127,7 @@ export const getProducts =
         params.categoryIds = categoryIds.join(",");
       }
 
+      if (name) params.name = name;
       const response = await apiService.get(`/products`, { params });
       dispatch(slice.actions.getProductsSuccess({ ...response.data, page }));
     } catch (error) {

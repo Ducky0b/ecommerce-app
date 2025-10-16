@@ -120,28 +120,6 @@ function HomePage() {
                 </Typography>
               </Box>
             )}
-
-            {parentCategories.length > 0 && (
-              <Box sx={{ mb: 4 }}>
-                <Box sx={{ textAlign: "center", mt: 4 }}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    onClick={() => navigate("/products/all")}
-                    sx={{
-                      px: 4,
-                      py: 1.5,
-                      fontSize: "1.1rem",
-                      background:
-                        "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-                      boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-                    }}
-                  >
-                    Xem Tất Cả Sản Phẩm
-                  </Button>
-                </Box>
-              </Box>
-            )}
           </>
         )}
       </Container>
