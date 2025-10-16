@@ -142,3 +142,18 @@ Backend API: 👉 http://localhost:5000
 - Multi-language support (EN/VN)
 
 - Dark mode toggle
+
+# 🙏 Acknowledgements
+
+Inspired by Shopee & Tiki
+
+Thanks to Material UI, Redux Toolkit, and the MERN community
+
+Deployed with Render + Netlify
+
+# 🧑‍💻 Author
+
+Vo Van Viet
+📧 vanviet28052002@gmail.com
+[Facebook](https://facebook.com/bedittihon)
+🌐 GitHub
