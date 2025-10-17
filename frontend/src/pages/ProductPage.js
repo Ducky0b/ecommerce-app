@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/product/productSlice"; // action fetch products
 import { slugify } from "../utils/slugtify";
@@ -8,6 +8,7 @@ import BannerSlider from "../components/BannerSlider";
 import { Box, Typography } from "@mui/material";
 
 function ProductPage() {
+  const [page, setPage] = useState(1);
   const { parentSlug, childSlug } = useParams();
   const dispatch = useDispatch();
 
@@ -81,7 +82,6 @@ function ProductPage() {
 
   return (
     <>
-      <BannerSlider />
       <Box
         sx={{
           textAlign: "center",
@@ -100,13 +100,14 @@ function ProductPage() {
             : categories.find((c) => slugify(c.name) === parentSlug)?.name}
         </Typography>
       </Box>
-
-      <ProductList
-        products={products}
-        currentPage={currentPage}
-        totalPages={totalPage}
-        handlePageChange={handlePageChange}
-      />
+      <Box sx={{ ml: 3 }}>
+        <ProductList
+          products={products}
+          currentPage={page}
+          totalPages={totalPage}
+          handlePageChange={handlePageChange}
+        />
+      </Box>
     </>
   );
 }

@@ -16,12 +16,12 @@ import AddIcon from "@mui/icons-material/Add";
 import { addToCart } from "../features/cart/cartSlice";
 import useAuth from "../hooks/useAuth";
 import { getProductsById } from "../features/product/productSlice";
+import ProductList from "../features/product/ProductList";
 
 function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
-
   const { user } = useAuth();
   const { currentProduct, isLoading } = useSelector((state) => state.products);
   const { categories } = useSelector((state) => state.category);
@@ -51,7 +51,6 @@ function ProductDetailPage() {
           c._id === currentProduct.categoryId?._id
       )
       ?.products.filter((p) => p._id !== currentProduct._id) || [];
-
   const handleAddToCart = () => {
     if (!user) {
       navigate("/login", { state: { from: `/products/detail/${slugAndId}` } });
@@ -71,7 +70,7 @@ function ProductDetailPage() {
   };
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{ m: 2 }}>
       <Breadcrumbs sx={{ mb: 2 }}>
         <Link
           component={RouterLink}
@@ -143,7 +142,7 @@ function ProductDetailPage() {
                 }
                 onClick={() => {
                   setSelectedColorIndex(index);
-                  setSelectedSizeIndex(0); // reset size khi đổi màu
+                  setSelectedSizeIndex(0);
                 }}
               >
                 {variant.color}
@@ -205,7 +204,7 @@ function ProductDetailPage() {
       {relatedProducts.length > 0 && (
         <Box sx={{ mt: 6 }}>
           <Typography
-            variant="h4"
+            variant="h5"
             sx={{
               mb: 2,
               display: "flex",
@@ -216,60 +215,9 @@ function ProductDetailPage() {
             Sản phẩm tương tự
           </Typography>
           <Divider sx={{ mb: 1, borderColor: "black" }} />
-          <Grid container spacing={2}>
-            {relatedProducts.slice(0, 5).map((product) => (
-              <Grid item xs={12} sm={6} md={3} key={product._id}>
-                <Box
-                  sx={{
-                    p: 2,
-                    border: "1px solid",
-                    borderColor: "divider",
-                    borderRadius: 2,
-                    cursor: "pointer",
-                    "&:hover": { boxShadow: 3 },
-                  }}
-                  onClick={() =>
-                    navigate(
-                      `/products/detail/${product.name
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}-${product._id}`
-                    )
-                  }
-                >
-                  <Box
-                    component="img"
-                    src={product.thumbnail}
-                    alt={product.name}
-                    sx={{
-                      width: 180,
-                      height: 200,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      overflow: "hidden",
-                      bgcolor: "#fff",
-                    }}
-                  />
-                  <Typography
-                    variant="body2"
-                    fontWeight="bold"
-                    noWrap
-                    sx={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      maxWidth: "180px",
-                    }}
-                  >
-                    {product.name}
-                  </Typography>
-                  <Typography variant="body2" color="error.main">
-                    {product.price.toLocaleString()} đ
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
+          <Box >
+            <ProductList products={relatedProducts} noPagination />
+          </Box>
         </Box>
       )}
     </Box>

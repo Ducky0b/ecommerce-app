@@ -4,27 +4,35 @@ import ProductCard from "./ProductCard";
 import Pagination from "@mui/material/Pagination";
 import { Typography } from "@mui/material";
 
-function ProductList({ products, currentPage, totalPages, handlePageChange }) {
+function ProductList({
+  products,
+  currentPage,
+  totalPages,
+  handlePageChange,
+  noPagination,
+}) {
   return (
     <div>
       {products && products.length > 0 ? (
         <>
           <Grid container spacing={1}>
             {products.map((product) => (
-              <Grid key={product._id} size={{ xs: 6, md: 2 }}>
+              <Grid key={product._id}>
                 <ProductCard products={product} />
               </Grid>
             ))}
           </Grid>
 
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-              shape="rounded"
-            />
-          </Box>
+          {!noPagination && (
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                shape="rounded"
+              />
+            </Box>
+          )}
         </>
       ) : (
         <Typography

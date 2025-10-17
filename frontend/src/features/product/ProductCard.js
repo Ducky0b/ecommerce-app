@@ -10,7 +10,7 @@ export default function ProductCard({ products }) {
     navigate(`/products/detail/${slug}-${products._id}`);
   };
 
-  const slug = products.name
+  const slug = products?.name
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -32,8 +32,8 @@ export default function ProductCard({ products }) {
     >
       <Box
         sx={{
-          width: 180,
-          height: 230,
+          width: 165,
+          height: 220,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -63,7 +63,7 @@ export default function ProductCard({ products }) {
           variant="subtitle2"
           noWrap
           sx={{
-            maxWidth: 150,
+            maxWidth: 120,
             transition: "color 0.3s",
             ":hover": {
               color: "secondary.main",

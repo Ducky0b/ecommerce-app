@@ -5,15 +5,12 @@ import {
   CircularProgress,
   Container,
   Typography,
-  Button,
   Alert,
 } from "@mui/material";
-import { CleaningServices, ShoppingBag as ShopIcon } from "@mui/icons-material";
+import { ShoppingBag as ShopIcon } from "@mui/icons-material";
 import useAuth from "../hooks/useAuth";
 import { getCurrentUser } from "../features/user/userSlice";
 import { getAllOrders } from "../features/order/orderSlice";
-
-import BannerSlider from "../components/BannerSlider";
 import { useNavigate } from "react-router-dom";
 import CategorySection from "../features/category/CategorySection";
 import { getCategories } from "../features/category/categorySlice";
@@ -36,6 +33,20 @@ function HomePage() {
     dispatch(getAllOrders());
   }, [dispatch, user]);
 
+  if (isLoading || !categories?.length) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   const handleViewMore = (category) => {
     navigate(`/products/${category.toLowerCase()}`);
   };
@@ -46,7 +57,6 @@ function HomePage() {
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "grey.50" }}>
-      <BannerSlider />
       <Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 } }}>
         {error && (
           <Alert severity="error" sx={{ mb: 3 }}>
@@ -54,27 +64,11 @@ function HomePage() {
           </Alert>
         )}
 
-        {isLoading && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              my: 6,
-            }}
-          >
-            <CircularProgress size={60} sx={{ mb: 2 }} />
-            <Typography variant="body1" color="text.secondary">
-              Đang tải danh mục và sản phẩm...
-            </Typography>
-          </Box>
-        )}
-
         {!isLoading && (
           <>
             <Box
               sx={{
-                mb: { xs: 4, md: 6 },
+                m: { xs: 0 },
                 textAlign: "center",
                 p: { xs: 3, md: 4 },
                 background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",

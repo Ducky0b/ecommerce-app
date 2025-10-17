@@ -23,23 +23,9 @@ import SearchProduct from "../components/SearchProduct";
 function Router() {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          // <AuthRequire>
-          <MainLayout />
-          // </AuthRequire>
-        }
-      >
+      <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route
-          path="/admin"
-          element={
-            <AdminRequire>
-              <AdminDashboard />
-            </AdminRequire>
-          }
-        />
+
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/account" element={<AccountPage />} />
@@ -60,7 +46,14 @@ function Router() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/search" element={<SearchProduct />} />
       </Route>
-
+      <Route
+        path="/admin"
+        element={
+          <AdminRequire>
+            <AdminDashboard />
+          </AdminRequire>
+        }
+      />
       <Route element={<BlankLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

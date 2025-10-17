@@ -8,7 +8,7 @@ function CategorySection({ products, category, onViewMore }) {
   const displayProducts = products.slice(0, 12);
 
   return (
-    <Box sx={{ mb: { xs: 4, md: 6 } }}>
+    <Box sx={{ mb: { xs: 4, md: 6 }, mt: { xs: 4, md: 6 } }}>
       <Box
         sx={{
           display: "flex",
@@ -37,7 +37,7 @@ function CategorySection({ products, category, onViewMore }) {
         </Box>
       </Box>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         {displayProducts.map((product) => (
           <Grid item xs={6} sm={4} md={3} lg={2} key={product._id}>
             <ProductCard products={product} />
