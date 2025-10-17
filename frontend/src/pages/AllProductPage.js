@@ -3,7 +3,6 @@ import { Box, Grid, Typography, Pagination } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getProducts } from "../features/product/productSlice";
-import BannerSlider from "../components/BannerSlider";
 
 function AllProductPage() {
   const [page, setPage] = useState(1);
@@ -17,13 +16,12 @@ function AllProductPage() {
     dispatch(getProducts({ page, limit: 12 }));
   }, [page, dispatch]);
   return (
-    <Box>
-      <BannerSlider />
+    <Box sx={{ mb: { xs: 4, md: 6 }, mt: { xs: 4, md: 6 } }}>
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "center",
           mb: { xs: 2, md: 3 },
           pb: 2,
           borderBottom: "2px solid",
@@ -46,14 +44,15 @@ function AllProductPage() {
           </Box>
         </Box>
       </Box>
-
-      <Grid container spacing={1} sx={{ px: { xs: 1, md: 6 } }}>
-        {products.map((product) => (
-          <Grid item xs={6} md={2} key={product._id}>
-            <ProductCard products={product} />
-          </Grid>
-        ))}
-      </Grid>
+      <Box sx={{ m: 3 }}>
+        <Grid container spacing={1}>
+          {products.map((product) => (
+            <Grid item xs={6} sm={4} md={3} lg={2} key={product._id}>
+              <ProductCard products={product} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
         <Pagination

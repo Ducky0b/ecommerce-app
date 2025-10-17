@@ -36,14 +36,15 @@ function CategorySection({ products, category, onViewMore }) {
           </Box>
         </Box>
       </Box>
-
-      <Grid container spacing={1}>
-        {displayProducts.map((product) => (
-          <Grid item xs={6} sm={4} md={3} lg={2} key={product._id}>
-            <ProductCard products={product} />
-          </Grid>
-        ))}
-      </Grid>
+      <Box sx={{ ml: { xs: 1 } }}>
+        <Grid container spacing={1}>
+          {displayProducts.map((product) => (
+            <Grid item xs={6} sm={4} md={3} lg={2} key={product._id}>
+              <ProductCard products={product} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
 
       {products.length > 2 && (
         <Box sx={{ textAlign: "center", mt: 3 }}>

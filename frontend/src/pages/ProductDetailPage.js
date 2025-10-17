@@ -215,7 +215,7 @@ function ProductDetailPage() {
             Sản phẩm tương tự
           </Typography>
           <Divider sx={{ mb: 1, borderColor: "black" }} />
-          <Box >
+          <Box sx={{ m: 0.5 }}>
             <ProductList products={relatedProducts} noPagination />
           </Box>
         </Box>
