@@ -59,9 +59,8 @@ export const addToCart =
         size,
         quantity,
       });
-      await dispatch(getCart(userId));
-
       toast.success("Đã thêm sản phẩm vào giỏ hàng");
+      await dispatch(getCart(userId));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
       toast.error(error.message);

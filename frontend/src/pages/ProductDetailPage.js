@@ -7,6 +7,7 @@ import {
   Breadcrumbs,
   Link,
   Divider,
+  CircularProgress,
 } from "@mui/material";
 import { useParams, Link as RouterLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +26,7 @@ function ProductDetailPage() {
   const { user } = useAuth();
   const { currentProduct, isLoading } = useSelector((state) => state.products);
   const { categories } = useSelector((state) => state.category);
+  const { currentUser } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +39,18 @@ function ProductDetailPage() {
   }, [id, dispatch]);
 
   if (isLoading || !currentProduct || !currentProduct.variants) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   const selectedVariant = currentProduct?.variants?.[selectedColorIndex];
@@ -59,7 +72,7 @@ function ProductDetailPage() {
 
     dispatch(
       addToCart({
-        userId: user.data?._id,
+        userId: currentUser._id,
         productId: currentProduct._id,
         color: selectedVariant.color,
         size: selectedSize.size,
