@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendOrderEmail = async (user, order, productOrders, next) => {
+const sendOrderEmail = async (user, order, productOrders) => {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -14,13 +14,23 @@ const sendOrderEmail = async (user, order, productOrders, next) => {
       .map(
         (item, index) => `
         <tr style="text-align:center;">
-          <td style="padding:8px; border-bottom:1px solid #eee;">${index + 1}</td>
-          <td style="padding:8px; border-bottom:1px solid #eee;">${item.productId?.name || "Sản phẩm"}</td>
-          <td style="padding:8px; border-bottom:1px solid #eee;">${item.color || "-"}</td>
-          <td style="padding:8px; border-bottom:1px solid #eee;">${item.size || "-"}</td>
-          <td style="padding:8px; border-bottom:1px solid #eee;">${item.quantity}</td>
-          <td style="padding:8px; border-bottom:1px solid #eee;">${(
-            Number(item.price)
+          <td style="padding:8px; border-bottom:1px solid #eee;">${
+            index + 1
+          }</td>
+          <td style="padding:8px; border-bottom:1px solid #eee;">${
+            item.productId?.name || "Sản phẩm"
+          }</td>
+          <td style="padding:8px; border-bottom:1px solid #eee;">${
+            item.color || "-"
+          }</td>
+          <td style="padding:8px; border-bottom:1px solid #eee;">${
+            item.size || "-"
+          }</td>
+          <td style="padding:8px; border-bottom:1px solid #eee;">${
+            item.quantity
+          }</td>
+          <td style="padding:8px; border-bottom:1px solid #eee;">${Number(
+            item.price
           ).toLocaleString()}₫</td>
         </tr>`
       )
@@ -80,7 +90,7 @@ const sendOrderEmail = async (user, order, productOrders, next) => {
       html: htmlContent,
     });
   } catch (error) {
-    next(error);
+    console.log(error);
   }
 };
 
