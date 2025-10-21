@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 
 const sendOrderEmail = async (user, order, productOrders) => {
+  console.log("🚀 sendOrderEmail() START");
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -82,13 +83,14 @@ const sendOrderEmail = async (user, order, productOrders) => {
       <p style="font-size:12px; color:#999;">Đây là email tự động, vui lòng không trả lời lại email này.</p>
     </div>
     `;
-
+    console.log("📨 Đang gửi mail tới:", user.email);
     await transporter.sendMail({
       from: `"VFashion Store" <${process.env.MAIL_USER}>`,
       to: user.email,
       subject: `Xác nhận đơn hàng #${order._id} - VFashion Store`,
       html: htmlContent,
     });
+    console.log("✅ Email đã gửi thành công tới:", user.email);
   } catch (error) {
     console.log(error);
   }
