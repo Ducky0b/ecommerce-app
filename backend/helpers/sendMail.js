@@ -1,16 +1,9 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
+const resend = new Resend(process.env.RESEND_API_KEY);
 const sendOrderEmail = async (user, order, productOrders) => {
   console.log("🚀 sendOrderEmail() START");
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
-    });
-
     const productListHTML = productOrders
       .map(
         (item, index) => `
@@ -84,10 +77,10 @@ const sendOrderEmail = async (user, order, productOrders) => {
     </div>
     `;
     console.log("📨 Đang gửi mail tới:", user.email);
-    await transporter.sendMail({
-      from: `"VFashion Store" <${process.env.MAIL_USER}>`,
+    await resend.emails.send({
+      from: "VFashion Store <no-reply@resend.dev>",
       to: user.email,
-      subject: `Xác nhận đơn hàng #${order._id} - VFashion Store`,
+      subject: `Xác nhận đơn hàng #${order._id}`,
       html: htmlContent,
     });
     console.log("✅ Email đã gửi thành công tới:", user.email);
