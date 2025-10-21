@@ -33,7 +33,7 @@ export default function MiniCart() {
 
   const totalAmount =
     cartItems?.reduce((sum, item) => {
-      const product = item?.productId; // Đã là object từ populate
+      const product = item?.productId;
       const price = product?.price || 0;
       const quantity = item?.quantity || 0;
 
@@ -70,13 +70,11 @@ export default function MiniCart() {
         <Divider />
 
         {isEmpty ? (
-          <Box textAlign="center" py={3}>
+          <Box textAlign="center" py={3} sx={{ width: 300 }}>
             <ShoppingCartOutlinedIcon
               sx={{ fontSize: 40, color: "primary.main", mb: 1 }}
             />
-            <Typography variant="body2">
-              There are currently no products
-            </Typography>
+            <Typography variant="body2">Không có sản phẩm nào...</Typography>
           </Box>
         ) : (
           <Box maxHeight={250} overflow="auto" m={2} width={300}>
@@ -142,17 +140,17 @@ export default function MiniCart() {
           >
             VIEW CART
           </Button>
-          <Button
+          {/* <Button
             variant="contained"
             fullWidth
             onClick={() => {
               handleClose();
-              navigate("/checkout");
+              navigate("/cart");
             }}
             sx={{ backgroundColor: "#000", color: "#fff" }}
           >
             CHECK OUT
-          </Button>
+          </Button> */}
         </Box>
       </Menu>
     </>

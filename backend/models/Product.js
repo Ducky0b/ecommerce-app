@@ -11,7 +11,7 @@ const productSchema = Schema(
       ref: "Category",
       required: true,
     },
-    thumbnail: { type: String, required: true, default: "" }, //Ảnh đại diện chính
+    thumbnail: { type: String, required: true, default: "" }, 
     variants: [
       {
         color: { type: String, required: true },
@@ -27,10 +27,10 @@ const productSchema = Schema(
               required: true,
               min: 0,
             },
-            sku: { type: String, required: true }, // mã riêng cho các biến thể
+            sku: { type: String, required: true }, 
           },
         ],
-        imageUrl: { type: String }, // ảnh riêng của biến thể
+        imageUrl: { type: String }, 
       },
     ],
     isDeleted: { type: Boolean, default: false, select: true },

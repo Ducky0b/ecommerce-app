@@ -23,26 +23,56 @@ import {
 import { fNumber } from "../../utils/numberFormat";
 import { removeCartItem, updateCartItemQuantity } from "./cartSlice";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
-function CartStep({ cartItems, setActiveStep }) {
+function CartStep({ cartItems, setActiveStep, setFinalTotal }) {
   const { user } = useAuth();
   const dispatch = useDispatch();
-  const [discount, setDiscount] = useState(0);
 
+  const [discount, setDiscount] = useState("");
+  const [discountCode, setDiscountCode] = useState("");
+  const [discountError, setDiscountError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const discountList = {
+    SAVE10: 0.1, // 10% tổng đơn
+    FREESHIP: 30000, // giảm 30k phí ship
+    VOUCHER50: 50000, // giảm cố định 50k
+  };
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.productId?.price * item.quantity,
     0
   );
-  const originalTotal = cartItems.reduce(
-    (sum, item) => sum + item.productId?.price * item.quantity,
-    0
-  );
 
-  const savedAmount = originalTotal - subtotal;
   const shippingFee = subtotal >= 500000 ? 0 : 30000;
-  const finalTotal = subtotal - discount + shippingFee;
+  const discountAmount = discount < 1 ? subtotal * discount : discount;
+  const finalTotal = subtotal - discountAmount + shippingFee;
+  useEffect(() => {
+    setFinalTotal(finalTotal);
+  }, [setFinalTotal, finalTotal]);
+
+  const handleApplyDiscount = () => {
+    const code = discountCode.trim().toUpperCase();
+
+    if (!code) {
+      setDiscountError("Vui lòng nhập mã giảm giá");
+      setSuccessMessage("");
+      return;
+    }
+
+    if (discountList[code]) {
+      setDiscountError("");
+      setSuccessMessage(`Áp dụng mã ${code} thành công!`);
+
+      const value = discountList[code];
+      setDiscount(value);
+    } else {
+      setDiscount(0);
+      setSuccessMessage("");
+      setDiscountError("Mã giảm giá không hợp lệ hoặc đã hết hạn");
+    }
+  };
 
   return (
     <Container
@@ -61,23 +91,8 @@ function CartStep({ cartItems, setActiveStep }) {
           width: "100%",
         }}
       >
-        <Grid
-          item
-          xs={12}
-          lg={6}
-          sx={{
-            width: "100%",
-            paddingLeft: { xs: 0, lg: "12px" },
-            paddingRight: { xs: 0, lg: "6px" },
-          }}
-        >
-          <Card
-            elevation={2}
-            sx={{
-              height: "fit-content",
-              width: "100%",
-            }}
-          >
+        <Grid item xs={12} lg={6}>
+          <Card elevation={2} sx={{ height: "fit-content", width: "100%" }}>
             <CardContent sx={{ p: { xs: 2, md: 3 } }}>
               <Typography
                 variant="h5"
@@ -138,43 +153,20 @@ function CartStep({ cartItems, setActiveStep }) {
                       >
                         Size: {item.size} | Màu: {item.color}
                       </Typography>
-                      <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            fontWeight: 600,
-                            color: "error.main",
-                            fontSize: { xs: "0.85rem", sm: "0.875rem" },
-                          }}
-                        >
-                          {fNumber(item.productId.price)} đ
-                        </Typography>
-                        {item.productId.price && (
-                          <Typography
-                            variant="body2"
-                            sx={{
-                              textDecoration: "line-through",
-                              color: "text.secondary",
-                              fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                            }}
-                          >
-                            {/* {fNumber(item.productId.price)} đ */}
-                          </Typography>
-                        )}
-                      </Box>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontWeight: 600,
+                          color: "error.main",
+                          fontSize: { xs: "0.85rem", sm: "0.875rem" },
+                          mt: 1,
+                        }}
+                      >
+                        {fNumber(item.productId.price)} đ
+                      </Typography>
                     </Grid>
 
-                    <Grid
-                      item
-                      xs={7}
-                      sm={3}
-                      md={2}
-                      lg={2}
-                      sx={{
-                        display: "flex",
-                        justifyContent: { xs: "flex-start", sm: "center" },
-                      }}
-                    >
+                    <Grid item xs={7} sm={3} md={2} lg={2}>
                       <Box
                         sx={{
                           display: "flex",
@@ -200,16 +192,7 @@ function CartStep({ cartItems, setActiveStep }) {
                         >
                           <RemoveIcon fontSize="small" />
                         </IconButton>
-                        <Typography
-                          sx={{
-                            mx: { xs: 1, sm: 2 },
-                            minWidth: 20,
-                            textAlign: "center",
-                            fontSize: { xs: "0.875rem", sm: "1rem" },
-                          }}
-                        >
-                          {item.quantity}
-                        </Typography>
+                        <Typography sx={{ mx: 2 }}>{item.quantity}</Typography>
                         <IconButton
                           size="small"
                           onClick={() =>
@@ -227,17 +210,7 @@ function CartStep({ cartItems, setActiveStep }) {
                       </Box>
                     </Grid>
 
-                    <Grid
-                      item
-                      xs={5}
-                      sm={1}
-                      md={2}
-                      lg={2}
-                      sx={{
-                        display: "flex",
-                        justifyContent: { xs: "flex-end", sm: "center" },
-                      }}
-                    >
+                    <Grid item xs={5} sm={1} md={2} lg={2}>
                       <IconButton
                         size="small"
                         color="error"
@@ -254,6 +227,7 @@ function CartStep({ cartItems, setActiveStep }) {
                       </IconButton>
                     </Grid>
                   </Grid>
+
                   {cartItems.indexOf(item) < cartItems.length - 1 && (
                     <Divider sx={{ mt: 2 }} />
                   )}
@@ -263,31 +237,17 @@ function CartStep({ cartItems, setActiveStep }) {
           </Card>
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          lg={6}
-          sx={{
-            width: "100%",
-            paddingLeft: { xs: 0, lg: "6px" },
-            paddingRight: { xs: 0, lg: "12px" },
-          }}
-        >
+        <Grid item xs={12} lg={6}>
           <Card
             elevation={2}
             sx={{
               height: "fit-content",
-              width: "100%",
               position: { lg: "sticky" },
               top: { lg: 20 },
             }}
           >
             <CardContent sx={{ p: { xs: 2, md: 3 } }}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                sx={{ fontSize: { xs: "1.1rem", md: "1.25rem" } }}
-              >
+              <Typography variant="h6" gutterBottom>
                 Thanh toán đơn hàng
               </Typography>
 
@@ -295,91 +255,59 @@ function CartStep({ cartItems, setActiveStep }) {
                 <TextField
                   fullWidth
                   size="small"
-                  placeholder="Mã giảm giá"
+                  placeholder="Nhập mã giảm giá"
+                  value={discountCode}
+                  onChange={(e) => setDiscountCode(e.target.value)}
+                  error={!!discountError}
+                  helperText={discountError}
                   InputProps={{
                     endAdornment: (
                       <Button
                         size="small"
-                        sx={{ fontSize: { xs: "0.75rem", sm: "0.875rem" } }}
+                        // onClick={handleApplyDiscount}
                       >
                         Áp dụng
                       </Button>
                     ),
                   }}
                 />
+                {successMessage && (
+                  <Alert
+                    severity="success"
+                    sx={{ mt: 1, fontSize: "0.875rem" }}
+                  >
+                    {successMessage}
+                  </Alert>
+                )}
               </Box>
 
               <List dense>
                 <ListItem sx={{ px: 0, justifyContent: "space-between" }}>
-                  <ListItemText
-                    primary="Tạm tính"
-                    primaryTypographyProps={{
-                      fontSize: { xs: "0.875rem", sm: "1rem" },
-                    }}
-                  />
-                  <Typography sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}>
-                    {fNumber(subtotal)}
-                  </Typography>
+                  <ListItemText primary="Tạm tính" />
+                  <Typography>{fNumber(subtotal)}</Typography>
                 </ListItem>
-
-                {savedAmount > 0 && (
-                  <ListItem sx={{ px: 0, justifyContent: "space-between" }}>
-                    <ListItemText
-                      primary="Tiết kiệm"
-                      primaryTypographyProps={{
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                      }}
-                    />
-                    <Typography
-                      color="success.main"
-                      sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
-                    >
-                      -{fNumber(savedAmount)}
-                    </Typography>
-                  </ListItem>
-                )}
 
                 {discount > 0 && (
                   <ListItem sx={{ px: 0, justifyContent: "space-between" }}>
-                    <ListItemText
-                      primary="Giảm giá"
-                      primaryTypographyProps={{
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                      }}
-                    />
-                    <Typography
-                      color="success.main"
-                      sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
-                    >
-                      -{fNumber(discount)}
+                    <ListItemText primary="Giảm giá" />
+                    <Typography color="success.main">
+                      -{fNumber(discountAmount)}
                     </Typography>
                   </ListItem>
                 )}
 
                 <ListItem sx={{ px: 0, justifyContent: "space-between" }}>
-                  <ListItemText
-                    primary="Phí vận chuyển"
-                    primaryTypographyProps={{
-                      fontSize: { xs: "0.875rem", sm: "1rem" },
-                    }}
-                  />
+                  <ListItemText primary="Phí vận chuyển" />
                   <Typography
                     color={shippingFee === 0 ? "success.main" : "inherit"}
-                    sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
                   >
                     {shippingFee === 0 ? "Miễn phí" : fNumber(shippingFee)}
                   </Typography>
                 </ListItem>
               </List>
 
-              {shippingFee > 0 && (
-                <Alert
-                  severity="info"
-                  sx={{
-                    mb: 2,
-                    fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                  }}
-                >
+              {shippingFee > 0 && subtotal < 500000 && (
+                <Alert severity="info" sx={{ mb: 2 }}>
                   Mua thêm {fNumber(500000 - subtotal)} đ để được miễn phí vận
                   chuyển!
                 </Alert>
@@ -391,21 +319,12 @@ function CartStep({ cartItems, setActiveStep }) {
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  mb: 2,
                   alignItems: "center",
+                  mb: 2,
                 }}
               >
-                <Typography
-                  variant="h6"
-                  sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
-                >
-                  Tổng cộng:
-                </Typography>
-                <Typography
-                  variant="h6"
-                  color="error.main"
-                  sx={{ fontSize: { xs: "1.1rem", sm: "1.25rem" } }}
-                >
+                <Typography variant="h6">Tổng cộng:</Typography>
+                <Typography variant="h6" color="error.main">
                   {fNumber(finalTotal)}
                 </Typography>
               </Box>
@@ -415,11 +334,6 @@ function CartStep({ cartItems, setActiveStep }) {
                 variant="contained"
                 size="large"
                 onClick={() => setActiveStep(1)}
-                sx={{
-                  mt: 2,
-                  py: { xs: 1.5, sm: 2 },
-                  fontSize: { xs: "0.9rem", sm: "1rem" },
-                }}
               >
                 Tiến hành thanh toán
               </Button>

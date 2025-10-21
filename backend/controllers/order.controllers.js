@@ -4,6 +4,7 @@ const User = require("../models/User");
 const Order = require("../models/Order");
 const ProductOrder = require("../models/ProductOrder");
 const { AppError, sendResponse } = require("../helpers/utils");
+const { sendOrderEmail } = require("../helpers/sendMail");
 
 const orderControllers = {};
 
@@ -82,18 +83,26 @@ orderControllers.createOrder = async (req, res, next) => {
     cart.itemCount = 0;
     await cart.save();
 
-    // 🔥 cập nhật totalSpent và totalOrders cho user
     const userOrders = await Order.find({ userId, isDeleted: false });
     const totalSpent = userOrders.reduce((sum, o) => sum + o.totalAmount, 0);
     const totalOrders = userOrders.length;
 
     await User.findByIdAndUpdate(userId, { totalSpent, totalOrders });
+
+    const user = await User.findById(userId);
+    const populatedOrders = await ProductOrder.find({
+      orderId: order._id,
+    }).populate({
+      path: "productId",
+      select: "name price thumbnail",
+    });
+    await sendOrderEmail(user, order, populatedOrders);
     sendResponse(
       res,
       201,
       true,
       order,
-      productOrders,
+      populatedOrders,
       null,
       "Order created successfully"
     );
@@ -157,7 +166,6 @@ orderControllers.getAllOrders = async (req, res, next) => {
     page = parseInt(page) || 1;
     limit = parseInt(limit) || 10;
 
-    // Đếm tổng số orders
     const count = await Order.countDocuments({ isDeleted: false });
     const totalPage = Math.ceil(count / limit);
     const offset = limit * (page - 1);

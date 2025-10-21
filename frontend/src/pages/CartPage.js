@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { ShoppingCart as CartIcon } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import ShippingStep from "../features/cart/ShippingStep";
 import PaymentStep from "../features/cart/PaymentStep";
 import CartStep from "../features/cart/CartStep";
@@ -23,17 +23,9 @@ import { FormProvider } from "../components/form";
 const CartPage = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const [activeStep, setActiveStep] = useState(0);
-  const [discount, setDiscount] = useState(0);
-
+  const [finalTotal, setFinalTotal] = useState(0);
+  const navigate = useNavigate();
   const steps = ["Giỏ hàng", "Thông tin giao hàng", "Thanh toán"];
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.productId?.price * item.quantity,
-    0
-  );
-  const shippingFee = subtotal >= 500000 ? 0 : 30000;
-  const finalTotal = subtotal - discount + shippingFee;
-
   const methods = useForm({
     defaultValues: {
       fullName: "",
@@ -50,7 +42,13 @@ const CartPage = () => {
   const renderStepContent = (step) => {
     switch (step) {
       case 0:
-        return <CartStep cartItems={cartItems} setActiveStep={setActiveStep} />;
+        return (
+          <CartStep
+            cartItems={cartItems}
+            setActiveStep={setActiveStep}
+            setFinalTotal={setFinalTotal}
+          />
+        );
       case 1:
         return (
           <ShippingStep
@@ -79,7 +77,14 @@ const CartPage = () => {
           <Typography variant="body1" color="text.secondary" gutterBottom>
             Hãy thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm
           </Typography>
-          <Button variant="contained" size="large" sx={{ mt: 2 }}>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ mt: 2 }}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             Tiếp tục mua sắm
           </Button>
         </Paper>

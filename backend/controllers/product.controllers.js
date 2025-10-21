@@ -148,6 +148,11 @@ productControllers.getAllProducts = async (req, res, next) => {
         name: { $regex: filter.name, $options: "i" },
       });
     }
+    if (filter.price) {
+      filterConditions.push({
+        price: filter.price,
+      });
+    }
     if (filter.categoryId) {
       filterConditions.push({
         categoryId: filter.categoryId,
