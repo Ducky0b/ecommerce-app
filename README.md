@@ -34,7 +34,7 @@ This project demonstrates a real-world online shopping experience where users ca
 | **Backend**     | Node.js, Express.js, MongoDB (Mongoose), JWT    |
 | **Database**    | MongoDB Atlas                                   |
 | **Cloud**       | Cloudinary (image upload)                       |
-| **Deploy**      | Netlify (Frontend), Render (Backend)            |
+| **Deploy**      | Netlify (Frontend), Railway (Backend)           |
 | **Other Tools** | Axios, dotenv, cors, bcrypt, multer             |
 
 ---
