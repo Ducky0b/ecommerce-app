@@ -19,10 +19,10 @@ This project demonstrates a real-world online shopping experience where users ca
 
 ## 🌐 Live Demo
 
-| Layer                  | URL                                                                                  |
-| ---------------------- | ------------------------------------------------------------------------------------ |
-| **Frontend (Netlify)** | [https://dulcet-khapse-41242a.netlify.app](https://dulcet-khapse-41242a.netlify.app) |
-| **Backend (Render)**   | [https://ecommerce-app-ivyc.onrender.com](https://ecommerce-app-ivyc.onrender.com)   |
+| Layer                  | URL                                                                                                            |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Frontend (Netlify)** | [https://dulcet-khapse-41242a.netlify.app](https://dulcet-khapse-41242a.netlify.app)                           |
+| **Backend (Render)**   | [https://ecommerce-app-production-2e5b.up.railway.app/](https://ecommerce-app-production-2e5b.up.railway.app/) |
 
 ---
 
