@@ -9,11 +9,11 @@ The app supports product browsing, search, authentication, shopping cart, order 
 
 This e-commerce app allows users to:
 
-- 🛍️ Browse products by category, color, and size
+- 🛍️ Browse products by category and name
 - 🔎 Search products instantly from the top navigation bar
 - 🛒 Add products to cart and place orders (COD supported)
 - 👤 Manage personal account, upload avatar, and view order history
-- 🧑‍💼 Admin dashboard for managing products, users, and orders
+- 🧑‍💼 Admin dashboard for managing products,categories, users, and orders
 
 ## 🚀 Demo
 

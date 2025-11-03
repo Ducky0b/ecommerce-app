@@ -21,7 +21,7 @@ The platform supports user authentication, product browsing by category, cart fu
 ### Users
 
 - [ ] I want to view a list of products categorized (shirts, pants, accessories, etc.).
-- [ ] I want to search and filter products by name, price, or size.
+- [ ] I want to search and filter products by name, category
 - [ ] I want to add products to my shopping cart and adjust quantities.
 - [ ] I want to register and log in to track my orders.
 - [ ] I want to checkout and pay using common payment methods.
@@ -30,7 +30,7 @@ The platform supports user authentication, product browsing by category, cart fu
 
 - [ ] As a user, I want to view a list of products categorized by type (e.g., shirts, pants, accessories) so that I can easily find what I’m looking for.
 
-- [ ] As a user, I want to filter products by size, price, or color so that I can narrow down my choices.
+- [ ] As a user, I want to filter products by name, category
 
 - [ ] As a user, I want to search for products by keyword so I can find specific items quickly.
 

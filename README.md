@@ -9,11 +9,11 @@ Deployed seamlessly across **Render (backend)** and **Netlify (frontend)**.
 
 This project demonstrates a real-world online shopping experience where users can:
 
-- 🛍️ Browse and filter products by category, color, and size
+- 🛍️ Browse and filter products by category and name
 - 🔎 Instantly search for products via the header search bar
 - 🛒 Add products to cart and place orders (Cash on Delivery)
 - 👤 Register, log in, and manage personal profiles
-- 🧑‍💼 Admin users can manage products, users, and orders
+- 🧑‍💼 Admin users can manage products,categories, users, and orders
 
 ---
 
