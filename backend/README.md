@@ -8,7 +8,7 @@ The platform supports user authentication, product browsing by category, cart fu
 
 ## 🚀 Demo
 
-🔗 [https://ecommerce-app-ivyc.onrender.com/](#)
+🔗 [https://ecommerce-app-production-2e5b.up.railway.app/](#)
 
 # User Stories
 

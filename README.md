@@ -22,7 +22,7 @@ This project demonstrates a real-world online shopping experience where users ca
 | Layer                  | URL                                                                                                            |
 | ---------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Frontend (Netlify)** | [https://dulcet-khapse-41242a.netlify.app](https://dulcet-khapse-41242a.netlify.app)                           |
-| **Backend (Render)**   | [https://ecommerce-app-production-2e5b.up.railway.app/](https://ecommerce-app-production-2e5b.up.railway.app/) |
+| **Backend (Railway)**   | [https://ecommerce-app-production-2e5b.up.railway.app/](https://ecommerce-app-production-2e5b.up.railway.app/) |
 
 ---
 
